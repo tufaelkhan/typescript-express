@@ -1,4 +1,4 @@
-import { StudentModel } from './student.interface';
+// import { TStudent } from './student.interface';
 import { Model } from 'mongoose';
 
 

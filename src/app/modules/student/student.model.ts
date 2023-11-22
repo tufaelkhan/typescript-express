@@ -4,7 +4,7 @@ import {
   TGuardian,
   TLocalGuardian,
   TStudent,
-  StudentMethods,
+  // StudentMethods,
   TUserName,
   StudentModel,
 } from './student.interface';
