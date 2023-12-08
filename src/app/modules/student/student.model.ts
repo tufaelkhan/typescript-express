@@ -1,5 +1,4 @@
 import { Schema, model } from 'mongoose';
-import bcrypt from 'bcrypt'
 import {
   TGuardian,
   TLocalGuardian,
@@ -9,7 +8,6 @@ import {
   StudentModel,
 } from './student.interface';
 import validator from 'validator';
-import config from '../../config';
 
 const userNameSchema = new Schema<TUserName>({
   firstName: {
@@ -94,11 +92,6 @@ const studentSchema = new Schema<TStudent, StudentModel>({
     unique: true,
     ref: 'User'
   },
-  password: {
-    type: String,
-    required: [true, 'password is required'],
-    maxlength:[8, 'password should be 8 character'],
-  },
   name: {
     type: userNameSchema,
     trim: true,
@@ -182,21 +175,6 @@ studentSchema.virtual('fullName').get(function(){
 
 // pre save middleware or hook
 // will work on create() save()
-studentSchema.pre('save', async function(next){
-  // hashing password and save into DB
-  // eslint-disable-next-line @typescript-eslint/no-this-alias
-  const user = this 
-  user.password = await bcrypt.hash(user.password, Number(config.bcrypt_salt_rounds))
-  next()
-
-  // console.log(this, 'pre hook: we will save the data some moment later');
-})
-
-// post save middleware or hook
-studentSchema.post('save', function(doc, next){
-  doc.password = ''
-  next()
-})
 
 // query middleware implement
 studentSchema.pre('find', async function (next) {
