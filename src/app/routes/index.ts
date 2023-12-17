@@ -19,7 +19,7 @@ const moduleRoutes = [
         route: AcademicSemesterRoute
     }
 ]
-
+// create-academic-semester
 moduleRoutes.forEach(route => router.use(route.path, route.route))
 
 
